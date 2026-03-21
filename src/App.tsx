@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, AlertTriangle, RefreshCw, ShieldCheck } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE_URL } from './api/client';
+
 import Header from './components/Header';
 import VideoInput from './components/VideoInput';
 import LanguageSelector from './components/LanguageSelector';
@@ -9,6 +11,18 @@ import ProcessingStatus from './components/ProcessingStatus';
 import VideoPreview from './components/VideoPreview';
 import type { VideoInfo, ProcessingStep } from './types';
 import './App.css';
+
+// Helper to format error message safely (avoids React Error #31)
+const getErrorMessage = (err: any): string => {
+    if (err.response?.data?.error) {
+        const error = err.response.data.error;
+        if (typeof error === 'string') return error;
+        if (typeof error === 'object') {
+            return error.message || error.code || JSON.stringify(error);
+        }
+    }
+    return err.response?.data?.message || err.message || 'An unexpected error occurred.';
+};
 
 const App: React.FC = () => {
     // State
@@ -34,16 +48,16 @@ const App: React.FC = () => {
             setOriginalText('');
             setTranslatedText('');
 
-            const response = await axios.post('/api/download', { url });
+            const response = await axios.post(`${API_BASE_URL}/download`, { url });
             const { videoInfo, videoPath, filename } = response.data.data;
             setVideoInfo({
                 ...videoInfo,
                 videoPath,
-                url: `/uploads/${filename}`
+                url: `${API_BASE_URL.replace('/api', '')}/uploads/${filename}`
             });
         } catch (err: any) {
             console.error('Download error:', err);
-            setError(err.response?.data?.error || 'Failed to download video. Please check the URL and try again.');
+            setError(getErrorMessage(err));
         } finally {
             setIsDownloading(false);
         }
@@ -60,19 +74,19 @@ const App: React.FC = () => {
             setCurrentStep('transcription');
             setTranslatedVideoUrl(null);
 
-            const response = await axios.post('/api/translate', {
+            const response = await axios.post(`${API_BASE_URL}/translate`, {
                 videoPath: videoInfo.videoPath,
                 sourceLang,
                 targetLang
             });
 
             const { downloadUrl, originalText, translatedText } = response.data.data;
-            setTranslatedVideoUrl(downloadUrl);
+            setTranslatedVideoUrl(downloadUrl.startsWith('http') ? downloadUrl : `${API_BASE_URL.replace('/api', '')}${downloadUrl}`);
             setOriginalText(originalText || '');
             setTranslatedText(translatedText || '');
         } catch (err: any) {
             console.error('Translation error:', err);
-            setError(err.response?.data?.error || 'Translation failed. Please try again.');
+            setError(getErrorMessage(err));
         } finally {
             setIsTranslating(false);
         }
@@ -84,7 +98,7 @@ const App: React.FC = () => {
         if (isTranslating) {
             interval = setInterval(async () => {
                 try {
-                    const response = await axios.get('/api/translate/status');
+                    const response = await axios.get(`${API_BASE_URL}/translate/status`);
                     setSteps(response.data.steps);
                     const current = response.data.steps.find((s: any) => s.id !== 'completed' && s.status === 'processing');
                     if (current) setCurrentStep(current.id);
