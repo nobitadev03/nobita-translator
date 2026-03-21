@@ -1,0 +1,131 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding: var(--spacing-3xl) 0;
+}
+
+.hero-section {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.input-section-modern {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-xl);
+}
+
+.translation-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    animation: fadeIn 0.8s ease-out;
+}
+
+.controls-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-2xl);
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.btn-hero {
+    padding: 1rem 2rem !important;
+    font-size: 1.1rem !important;
+}
+
+.warning-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: var(--radius-md);
+    color: var(--color-warning);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.error-toast {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: 1.2rem;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius-lg);
+    color: var(--color-error);
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.1);
+}
+
+.videos-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: var(--spacing-2xl);
+}
+
+.footer {
+    padding: var(--spacing-2xl) 0;
+    margin-top: var(--spacing-3xl);
+    border-top: 1px solid var(--border-glass);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+    .videos-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .main-content {
+        padding: var(--spacing-xl) 0;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}

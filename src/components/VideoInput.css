@@ -1,0 +1,126 @@
+.video-input-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.video-input-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.video-input-header h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xs);
+    background: var(--gradient-button);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.video-input-header p {
+    color: var(--text-muted);
+}
+
+.video-input-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-wrapper-refined {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-refined {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    padding-right: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    transition: all var(--transition-base);
+}
+
+.input-refined:focus {
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-primary);
+    outline: none;
+}
+
+.input-actions-refined {
+    position: absolute;
+    right: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon-refined {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon-refined:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.error-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-error);
+    font-size: 0.85rem;
+    padding-left: var(--spacing-sm);
+}
+
+.btn-full {
+    width: 100%;
+    padding: 1.2rem !important;
+    font-size: 1.1rem !important;
+}
+
+.supported-platforms-refined {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.platform-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: all var(--transition-base);
+}
+
+.platform-tag:hover {
+    color: var(--text-primary);
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+}
